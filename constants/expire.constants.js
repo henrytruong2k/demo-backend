@@ -1,4 +1,4 @@
-const TIME_EXPIRE = 0.5;
+const TIME_EXPIRE = 3;
 const WHITE_LIST = ["http://localhost:3000"];
 
 module.exports = {

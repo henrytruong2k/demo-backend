@@ -50,7 +50,6 @@ const authCtrl = {
             _id: user._id,
             username: user.username,
           },
-          timeExpired: Date.now() + TIME_EXPIRE * 60 * 1000,
           accessToken,
           refreshToken,
         },
@@ -89,7 +88,6 @@ const authCtrl = {
       data: {
         accessToken,
         refreshToken,
-        timeExpired: Date.now() + TIME_EXPIRE * 60 * 1000,
       },
     });
   },

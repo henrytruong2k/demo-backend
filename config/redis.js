@@ -5,7 +5,12 @@ dotenv.config();
 let redisClient;
 
 (async () => {
-  const redisURL = `redis://${process.env.REDISUSER}:${process.env.REDISPASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
+  let redisURL;
+  if (process.env.NODE_ENV === "development") {
+    redisURL = `redis://localhost:6379`;
+  } else {
+    redisURL = `redis://${process.env.REDISUSER}:${process.env.REDISPASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
+  }
   redisClient = redis.createClient({ url: redisURL });
 
   redisClient.on("error", (error) => console.error(`Error : ${error}`));

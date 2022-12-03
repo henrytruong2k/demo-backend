@@ -7,6 +7,7 @@ const speciesRoutes = require("./routes/species.route");
 const authRoutes = require("./routes/auth.route");
 const userRoutes = require("./routes/user.route");
 const corsConfig = require("./config/cors");
+const morgan = require("morgan");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -14,7 +15,7 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 // app.use(limiter);
 app.use(cors(corsConfig));
-
+app.use(morgan("dev"));
 dotenv.config();
 connectDB();
 

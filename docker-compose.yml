@@ -1,0 +1,45 @@
+version: '3.8'
+
+services: 
+  api:
+    container_name: rest-api
+    restart: unless-stopped
+    build: 
+      context: .
+    ports:
+      - 5000:5000
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+    networks:
+      - devnetwork
+  
+  mongo:
+    image: mongo:5.0.5
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+    networks:
+      - devnetwork
+
+  redis:
+    image: redis:6.2.6-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+    networks:
+      - devnetwork
+
+volumes:
+  mongodb:
+  redis:
+
+networks:
+  devnetwork:

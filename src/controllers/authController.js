@@ -1,8 +1,7 @@
-const User = require("../models/user.model");
-const jwt = require("jsonwebtoken");
-const { generateRefreshToken } = require("../utils/generateRefreshToken");
-const redisClient = require("../config/redis");
-const { TIME_EXPIRE } = require("../constants/expire.constants");
+import jwt from "jsonwebtoken";
+import redisClient from "../config/redis.js";
+import User from "../models/userModel.js";
+import { generateRefreshToken } from "../utils/generateRefreshToken.js";
 
 const authCtrl = {
   register: async (req, res) => {
@@ -69,8 +68,10 @@ const authCtrl = {
     await redisClient.del(user_id.toString());
 
     // blacklist current access token
-    await redisClient.set("BL_" + user_id.toString(), token);
-    redisClient.expireAt("BL_" + user_id.toString(), tokenExp);
+    await redisClient.set("BL_" + user_id.toString(), token, {
+      EX: tokenExp,
+      NX: true,
+    });
 
     return res.json({ status: true, message: "Logout success." });
   },
@@ -93,4 +94,4 @@ const authCtrl = {
   },
 };
 
-module.exports = authCtrl;
+export default authCtrl;

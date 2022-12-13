@@ -1,7 +1,7 @@
-const redisClient = require("../config/redis");
-const jwt = require("jsonwebtoken");
+import redisClient from "../config/redis.js";
+import jwt from "jsonwebtoken";
 
-const generateRefreshToken = async (user_id) => {
+export const generateRefreshToken = async (user_id) => {
   const refreshToken = jwt.sign(
     { sub: user_id },
     process.env.JWT_REFRESH_SECRET,
@@ -13,5 +13,3 @@ const generateRefreshToken = async (user_id) => {
   );
   return refreshToken;
 };
-
-module.exports = { generateRefreshToken };

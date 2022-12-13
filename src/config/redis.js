@@ -1,20 +1,19 @@
-const redis = require("redis");
-const dotenv = require("dotenv");
-const { createClient } = require("@redis/client");
+import { createClient } from "@redis/client";
+import dotenv from "dotenv";
 dotenv.config();
 
 const redisClient = createClient({
-  url: `${process.env.REDIS_URL}`
+  url: `${process.env.REDIS_URL}`,
 });
 
 (async () => {
-  redisClient.on("error", (error) => console.error(`Error : ${error}`));
+  redisClient.on("error", (error) => console.error(`${error}`));
 
   await redisClient.connect();
 
-  console.log('Redis Connected')
+  console.log("Redis Connected");
 
-  await redisClient.set('key', 'Hello world');
+  await redisClient.set("key", "Hello world");
 })();
 
-module.exports = redisClient;
+export default redisClient;

@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const redisClient = require("../config/redis");
+import jwt from "jsonwebtoken";
+import redisClient from "../config/redis.js";
 
-const verifyToken = async (req, res, next) => {
+export const verifyToken = async (req, res, next) => {
   try {
     // Bearer token string
     const token = req.headers.authorization?.split(" ")[1];
@@ -28,7 +28,7 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-const verifyRefreshToken = async (req, res, next) => {
+export const verifyRefreshToken = async (req, res, next) => {
   const token = req.body.token;
 
   if (token === null)
@@ -60,5 +60,3 @@ const verifyRefreshToken = async (req, res, next) => {
     });
   }
 };
-
-module.exports = { verifyToken, verifyRefreshToken };

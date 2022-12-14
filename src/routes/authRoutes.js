@@ -1,5 +1,5 @@
 import express from "express";
-import userCtrl from "../controllers/authController.js";
+import userCtrl from "../controllers/authCtrl.js";
 import {
   verifyRefreshToken,
   verifyToken,
